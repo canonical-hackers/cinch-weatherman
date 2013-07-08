@@ -1,5 +1,4 @@
 require 'spec_helper'
-require 'pp'
 
 describe Cinch::Plugins::Weatherman do
 
@@ -11,7 +10,6 @@ describe Cinch::Plugins::Weatherman do
 
   it 'should allow users to ask for weather by zip' do
      msg = make_message(@bot, '!weather 94062')
-     pp get_replies(msg)
      get_replies(msg).last[:text].chomp.
       should include('In Redwood City, CA it is')
   end
