@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 require 'cinch'
-require 'cinch-cooldown'
+require 'cinch/cooldown'
 require 'time-lord'
 require 'weather-underground'
 
