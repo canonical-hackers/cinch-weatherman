@@ -22,18 +22,23 @@ module Cinch::Plugins
     private
 
     def get_weather(query)
-      location, temp_f, conditions, updated = get_forcast(query)
+      location, temp_f, conditions, updated = get_current(query)
+      conditions, high, low = get_forecast(query)
 
       message = "In #{location} it is #{conditions} "
       message << "and #{temp_f}°F "
       message << "(last updated about #{updated})"
+      message << "(last updated about #{updated})\n"
+      message << "For tomorrow, #{conditions}, "
+      message << "high of #{high}°F, low of #{low}°F."
 
       return message
+
     rescue ArgumentError
       return "Sorry, couldn't find #{query}."
     end
 
-    def get_forcast(query)
+    def get_current(query)
       data = WeatherUnderground::Base.new.CurrentObservations(query)
       weather = [ data.display_location.first.full,
                   data.temp_f,
@@ -41,5 +46,14 @@ module Cinch::Plugins
                   Time.parse(data.observation_time).ago.to_words ]
       return weather
     end
+
+    def get_forecast(query)
+        data = WeatherUnderground::Base.new.SimpleForecast(query)
+        forecast = [ data.days[0].conditions.downcase,
+                     data.days[0].high.fahrenheit.round,
+                     data.days[0].low.fahrenheit.round ]
+        return forecast
+    end
+
   end
 end
