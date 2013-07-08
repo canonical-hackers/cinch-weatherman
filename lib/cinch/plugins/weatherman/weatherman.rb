@@ -49,9 +49,9 @@ module Cinch::Plugins
 
     def get_forecast(query)
         data = WeatherUnderground::Base.new.SimpleForecast(query)
-        forecast = [ data.days[0].conditions.downcase,
-                     data.days[0].high.fahrenheit.round,
-                     data.days[0].low.fahrenheit.round ]
+        forecast = [ data.days[1].conditions.downcase,
+                     data.days[1].high.fahrenheit.round,
+                     data.days[1].low.fahrenheit.round ]
         return forecast
     end
 
