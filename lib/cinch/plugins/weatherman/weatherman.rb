@@ -23,14 +23,14 @@ module Cinch::Plugins
 
     def get_weather(query)
       location, temp_f, conditions, updated = get_current(query)
-      conditions, high, low = get_forecast(query)
+      t_conditions, t_high_f, t_low_f = get_forecast(query)
 
       message = "In #{location} it is #{conditions} "
       message << "and #{temp_f}°F "
       message << "(last updated about #{updated})"
       message << "(last updated about #{updated})\n"
-      message << "For tomorrow, #{conditions}, "
-      message << "high of #{high}°F, low of #{low}°F."
+      message << "For tomorrow, #{t_conditions}, "
+      message << "high of #{t_high_f}°F, low of #{t_low_f}°F."
 
       return message
 
